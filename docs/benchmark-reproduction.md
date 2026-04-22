@@ -358,5 +358,5 @@ When the runner is replaced mid-benchmark, the language tracks served by the rep
 |------|-------------|
 | `benchmarks/results_full_polyglot_run1.json` | Run 1 per-exercise results (104/225 = 46.22%) |
 | `benchmarks/results_full_polyglot_run2.json` | Run 2 per-exercise results (101/225 = 44.89%) |
-| `docs/whitepaper.md` | White paper with full narrative, methodology, and limitations |
+| [Substack: *Honey, I Shrunk the Coding Agent*](https://open.substack.com/pub/itayinbarr/p/honey-i-shrunk-the-coding-agent) | White paper with full narrative, methodology, and limitations |
 | `docs/benchmark-baseline-aider.md` | Vanilla Aider + Qwen3.5 baseline results |

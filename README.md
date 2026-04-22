@@ -4,7 +4,7 @@
 
 little-coder started as a Claude Code-inspired Python CLI that adapts a cloud-style coding agent to 5–25 GB local models served via Ollama or llama.cpp. With v0.1.0 the agent has been ported onto **[pi](https://github.com/badlogic/pi-mono)** (`@mariozechner/pi-coding-agent`) as a set of TypeScript extensions. Every mechanism the whitepaper cites as load-bearing — Write-vs-Edit invariant, per-turn skill injection, algorithm-cheat-sheet injection, thinking-budget cap, output-parser, quality monitor, per-model profiles, evidence-aware compaction — is preserved as a pi extension.
 
-**Paper result (v0.0.2):** `ollama/qwen3.5` (9.7B, 6.6 GB) + little-coder scored **45.56 % mean across two full runs** of the Aider Polyglot benchmark — above gpt-4.5-preview (44.9 %) and gpt-oss-120b high (41.8 %) on the public leaderboard. Matched-model vanilla Aider baseline: 19.11 %. The whitepaper is at [`docs/whitepaper.md`](docs/whitepaper.md). The exact codebase that produced those numbers is preserved at tag **[`v0.0.2`](https://github.com/itayinbarr/little-coder/releases/tag/v0.0.2)** (commit `1d62bde`) — check it out to reproduce.
+**Paper result (v0.0.2):** `ollama/qwen3.5` (9.7B, 6.6 GB) + little-coder scored **45.56 % mean across two full runs** of the Aider Polyglot benchmark — above gpt-4.5-preview (44.9 %) and gpt-oss-120b high (41.8 %) on the public leaderboard. Matched-model vanilla Aider baseline: 19.11 %. The whitepaper — *Honey, I Shrunk the Coding Agent* — is published on Substack: **https://open.substack.com/pub/itayinbarr/p/honey-i-shrunk-the-coding-agent**. The exact codebase that produced those numbers is preserved at tag **[`v0.0.2`](https://github.com/itayinbarr/little-coder/releases/tag/v0.0.2)** (commit `1d62bde`) — check it out to reproduce.
 
 **Best result (v0.0.5):** `llamacpp/qwen3.6-35b-a3b` (Qwen3.6-35B-A3B MoE, 22 GB Q4_K_M) + little-coder scored **78.67 %** on the same 225-exercise benchmark, running on an 8 GB laptop GPU. Tag **[`v0.0.5`](https://github.com/itayinbarr/little-coder/releases/tag/v0.0.5)** preserves that codebase; the full write-up is in [`docs/benchmark-qwen3.6-35b-a3b.md`](docs/benchmark-qwen3.6-35b-a3b.md).
 
@@ -121,7 +121,7 @@ little-coder/
 ├── models.json                     # documentation-only copy of the provider registration
 ├── package.json, tsconfig.json, vitest.config.ts
 └── docs/
-    ├── whitepaper.md               # the paper (v0.0.2 codebase)
+    ├── whitepaper.md               # the paper — canonical version on Substack (see README top)
     ├── architecture.md             # v0.0.5-era Python architecture (preserved)
     ├── benchmark-qwen3.6-35b-a3b.md# v0.0.5 78.67% narrative
     ├── benchmark-reproduction.md   # v0.0.2 two-run reproduction
@@ -158,7 +158,7 @@ If you reference little-coder or its Aider Polyglot result in academic work, ple
   author       = {Inbar, Itay},
   year         = {2026},
   month        = apr,
-  howpublished = {\url{https://github.com/itayinbarr/little-coder/blob/main/docs/whitepaper.md}},
+  howpublished = {\url{https://open.substack.com/pub/itayinbarr/p/honey-i-shrunk-the-coding-agent}},
   note         = {White paper}
 }
 ```

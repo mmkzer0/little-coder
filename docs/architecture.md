@@ -9,7 +9,7 @@
 ---
 
 This document is for developers who want to understand, modify, or extend **little-coder** at the v0.0.x layer.
-For user-facing docs, see [README.md](../README.md). For the research narrative, see [whitepaper.md](whitepaper.md).
+For user-facing docs, see [README.md](../README.md). For the research narrative, see the whitepaper on Substack: [*Honey, I Shrunk the Coding Agent*](https://open.substack.com/pub/itayinbarr/p/honey-i-shrunk-the-coding-agent).
 
 ---
 
