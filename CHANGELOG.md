@@ -2,6 +2,18 @@
 
 All notable changes to little-coder are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and little-coder's public interface (CLI, providers, tools, skills) follows semver starting at `v0.0.1` post-rename.
 
+## [v0.1.13] — 2026-04-24
+
+### Fixed — system prompt fidelity
+- **Restored the full v0.0.5 `SYSTEM_PROMPT_TEMPLATE` into `AGENTS.md`.** The port's original AGENTS.md was a ~12-line summary that omitted three load-bearing sections from the Python version: **Capabilities & Autonomy**, **Approaching complex tasks**, and **Handling ambiguity**. Pi's built-in system prompt covers generic coding-agent framing, but the little-coder-specific behavioral nudges — the ones whose wording was validated by the 78.67 % Polyglot run — were not carrying through.
+- Sections not carried forward: the Python prompt's Multi-Agent, Memory, MCP, Skill (tool), Task-Management, and Plugin descriptions (those tools aren't shipped in the pi port). The Environment block (`date`, `cwd`, `platform`, `git_info`, `claude_md`) is also dropped because pi populates those in its own built-in prompt.
+- Added v0.1.0-era additions the Python prompt didn't have: the Write-vs-Edit runtime invariant note, the per-turn context-augmentation explainer (so the model knows what the `## Tool Usage Guidance` and `## Algorithm Reference` blocks are), and the thinking-budget commit-to-implementation rule.
+
+### Action: restarting the TB 2.0 leaderboard run
+The `tb2-leaderboard-k5-*` run kicked off on 2026-04-23 was using the simplified AGENTS.md. Killing and relaunching so every trial uses the restored full prompt. ~12 h of compute is discarded; the submission requires a consistent prompt across all 5 × 89 = 445 trials, so partial-run-with-old-prompt-plus-new-trials-with-new-prompt wouldn't be submittable.
+
+Same class of miss as v0.1.10's `benchmark-profiles` temperature bug: a whitepaper-era mechanism silently diverging from the published numbers. No code, extension, or benchmark-harness changes in this release — the only file that changes runtime behavior is `AGENTS.md`.
+
 ## [v0.1.12] — 2026-04-24
 
 ### Changed
