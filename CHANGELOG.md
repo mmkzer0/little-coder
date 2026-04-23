@@ -2,6 +2,14 @@
 
 All notable changes to little-coder are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and little-coder's public interface (CLI, providers, tools, skills) follows semver starting at `v0.0.1` post-rename.
 
+## [v0.1.9] — 2026-04-23
+
+### Fixed — version string drift
+- `package.json` has been stuck at `"version": "0.1.0"` since the pi-port cut, despite tags advancing through v0.1.8. Bumped to **0.1.9** and will sync on future tags.
+- `benchmarks/harbor_adapter/little_coder_agent.py::LittleCoderAgent.version()` hardcoded `"0.1.6"` — meant run metadata would misreport the agent version for any future TB 2.0 submission. Now reads dynamically from `package.json` at import time, so it auto-tracks the bumped package version. Falls back to `"unknown"` if the file can't be read.
+
+No runtime behavior change; corrects the metadata that ends up in `result.json` / leaderboard submissions.
+
 ## [v0.1.8] — 2026-04-23
 
 ### Fixed

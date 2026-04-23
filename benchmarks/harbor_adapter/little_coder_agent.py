@@ -26,11 +26,30 @@ Launch:
 from __future__ import annotations
 
 import asyncio
+import json
 import logging
 import re
 import sys
 import uuid
 from pathlib import Path
+
+
+def _read_version_from_package_json() -> str:
+    """Read agent version from the repo's package.json at import time.
+
+    Avoids hardcoded version drift between the adapter's version() return
+    and the actual released tag. Falls back to "unknown" if the file is
+    missing or malformed.
+    """
+    try:
+        pkg = Path(__file__).resolve().parents[2] / "package.json"
+        return json.load(open(pkg)).get("version", "unknown")
+    except Exception:
+        return "unknown"
+
+
+_AGENT_VERSION = _read_version_from_package_json()
+
 
 from harbor.agents.base import BaseAgent
 from harbor.environments.base import BaseEnvironment
@@ -151,7 +170,7 @@ class LittleCoderAgent(BaseAgent):
         return "little-coder"
 
     def version(self) -> str | None:
-        return "0.1.6"
+        return _AGENT_VERSION
 
     async def setup(self, environment: BaseEnvironment) -> None:
         # little-coder runs pi on the host; no in-container setup needed.
