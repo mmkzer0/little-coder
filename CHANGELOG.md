@@ -2,6 +2,13 @@
 
 All notable changes to little-coder are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and little-coder's public interface (CLI, providers, tools, skills) follows semver starting at `v0.0.1` post-rename.
 
+## [v0.1.12] — 2026-04-24
+
+### Changed
+- README opening now restores a direct pointer to the Substack whitepaper — *[Honey, I Shrunk the Coding Agent](https://open.substack.com/pub/itayinbarr/p/honey-i-shrunk-the-coding-agent)* — in the first two paragraphs, framed as "start there for the *why*; stay here for the *how*". v0.1.11's rewrite had relegated the paper link to the results table only; restoring it above the fold is more appropriate for a repo whose headline result comes from that paper.
+
+No code or behavior change.
+
 ## [v0.1.11] — 2026-04-24
 
 ### Changed — README rewritten for the post-pi-migration audience
