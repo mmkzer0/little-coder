@@ -2,6 +2,21 @@
 
 All notable changes to little-coder are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and little-coder's public interface (CLI, providers, tools, skills) follows semver starting at `v0.0.1` post-rename.
 
+## [v0.1.18] — 2026-04-26
+
+### Submitted — Terminal-Bench 2.0 leaderboard, PR #158
+The full k=5 run from `tb2-leaderboard-k5-2026-04-24__00-34-46` has been submitted to the Terminal-Bench 2.0 leaderboard as PR #158 on the official `harborframework/terminal-bench-2-leaderboard` HF dataset.
+
+- **Result**: **23.82 %** (106 / 445) — Qwen3.6-35B-A3B via llama.cpp on a single RTX 5070 Laptop with 8 GB VRAM. No cloud inference. `timeout_multiplier=1.0`, no overrides.
+- **PR**: https://huggingface.co/datasets/harborframework/terminal-bench-2-leaderboard/discussions/158
+- **Status**: bot-validation passed; awaiting maintainer review/merge → auto-import to leaderboard at https://www.tbench.ai/leaderboard/terminal-bench/2.0.
+- **Trials**: 89 tasks × 5 trials = 445 total; per-task uniformity verified, single `task_checksum` per task confirmed.
+- **Errored trials**: 15 / 445 with `exception_info` populated (Docker compose image-pull timeouts, `AgentTimeoutError` at 1200/1800 s, `VerifierTimeoutError` at 900 s). All have valid `result.json`; counted as failed per the leaderboard's bot rules.
+- **Submission package**: top-level `metadata.yaml` (`agent_url`, `agent_display_name="little-coder"`, `agent_org_display_name="Itay Inbar"`, model entry for `Qwen/Qwen3.6-35B-A3B` / provider `llamacpp`) + the run dir as the job-folder. The dataset's own `.gitignore` (`*.log`) auto-stripped per-trial agent/trial logs from the upload — `result.json` and `config.json` for every trial uploaded cleanly.
+- **Agent version captured in trials**: `agent_info.version = "0.1.13"` — the version that was live when the run started (per the v0.1.13 prompt-fidelity restart noted earlier). The submission represents the v0.1.13 state, not later patch versions.
+
+No code change in this release — only the changelog entry, recording the milestone.
+
 ## [v0.1.17] — 2026-04-25
 
 ### Removed — README pitch paragraph and outdated local whitepaper copy
