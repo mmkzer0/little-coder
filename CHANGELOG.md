@@ -2,6 +2,31 @@
 
 All notable changes to little-coder are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and little-coder's public interface (CLI, providers, tools, skills) follows semver starting at `v0.0.1` post-rename.
 
+## [v0.1.24] — 2026-04-26
+
+### Experimental — re-add `# Available Tools / ## File & Shell` block to AGENTS.md (hypothesis test)
+The v0.1.22 leaderboard run was paused at 49 / 445 trials after `prove-plus-comm` (a Coq commutativity-proof task) flipped from a deterministic 5 / 5 in v0.1.18 to a deterministic 0 / 1 in v0.1.22. Inspecting the failed trial showed the agent went into a runaway-Python-script loop (~75 duplicate `Search (Nat.add_S_n).` lines in a single shell-arg, repeated bash heredoc EOF errors, `quality-monitor: empty_response` correction fired, hit `max_turns`).
+
+User hypothesis: the v0.1.13-restored AGENTS.md included a `# Available Tools / ## File & Shell` section that was *intentionally* duplicative with pi's auto-generated `Available tools:` snippets — the same tool descriptions twice, in different framings. The v0.1.20 dedup removed that section as redundant; the v0.1.22 prompt-architecture removed pi's half too. By v0.1.22, **neither** copy of the tool-description block was present. Hypothesis: for small local models, this duplication was load-bearing for tool-use stability — and its absence is what enabled the runaway loop on `prove-plus-comm`.
+
+This is consistent with Leviathan, Kalman, Matias (2025), [*Prompt Repetition Improves Non-Reasoning LLMs*](https://arxiv.org/abs/2512.14982): "*When not using reasoning, repeating the input prompt improves performance for popular models (Gemini, GPT, Claude, and Deepseek) without increasing the number of generated tokens or latency.*" The Qwen3.6-35B-A3B trials run with `thinking_budget: 3000` per `terminal_bench` profile, but the bulk of each turn is the model's non-reasoning tool-call selection — exactly the regime the paper is describing. The v0.1.13–v0.1.18 prompt's tool-description duplication appears to have been an accidental application of the same effect; deduplicating it stripped a reliability mechanism the leaderboard run was depending on.
+
+This release re-adds the exact `# Available Tools / ## File & Shell` block from the v0.1.13 restore. Pi's base remains disabled (per v0.1.22's `--system-prompt @AGENTS.md --no-context-files` plumbing), so the section now appears once — but as the *full descriptive block*, not the one-liners pi's snippets used to provide.
+
+### Added — concision guideline
+One new bullet at the top of `# Guidelines`:
+
+- `Be concise. Lead with the answer.` — restored from the pre-dedup AGENTS.md (was dropped in v0.1.20 as "duplicative with pi's `Be concise in your responses`"; pi's base is now gone, so this rule no longer exists anywhere in the prompt).
+
+### Action: targeted pilot — `prove-plus-comm` only, k = 5
+Instead of relaunching the full 445-trial leaderboard run, this version is being validated with a single-task k = 5 pilot on `prove-plus-comm`. Three outcomes possible:
+
+- **5 / 5**: hypothesis strongly supported; promote v0.1.24 prompt to a full leaderboard re-run.
+- **2–4 / 5**: hypothesis weakly supported; full run worth doing but with caveats.
+- **0–1 / 5**: hypothesis falsified; revert and try something else.
+
+No code change. Tests unchanged.
+
 ## [v0.1.23] — 2026-04-26
 
 ### Fixed — CHANGELOG inaccuracy in v0.1.22's scope claim
