@@ -2,6 +2,11 @@
 
 All notable changes to little-coder are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and little-coder's public interface (CLI, providers, tools, skills) follows semver starting at `v0.0.1` post-rename.
 
+## [v0.1.23] — 2026-04-26
+
+### Fixed — CHANGELOG inaccuracy in v0.1.22's scope claim
+v0.1.22's entry stated the new `--system-prompt` / `--no-context-files` plumbing affects "every benchmark that uses `PiRpc` (Aider Polyglot, TB 1.0, TB 2.0, GAIA)". That overclaimed the reach: the published Aider Polyglot results (45.56 % at v0.0.2, 78.67 % at v0.0.5) were generated on the **pre-pi Python codebase**, before `PiRpc` existed at all. They predate this change and are not retroactively affected. The actual real-world scope is the Terminal-Bench harnesses (TB 1.0 + TB 2.0). Corrected the v0.1.22 entry's wording in the same commit; no behavioral or code change.
+
 ## [v0.1.22] — 2026-04-26
 
 ### Changed — `AGENTS.md` is now THE system prompt (not appended `# Project Context`)
@@ -14,7 +19,7 @@ Until now, every benchmark trial saw pi's hardcoded base prompt — `You are an 
 
 Result: pi's `You are an expert coding assistant…` opener is gone. The Pi documentation block is gone. AGENTS.md is the single, primary system prompt. The skill-inject `## Tool Usage Guidance` and knowledge-inject `## Algorithm Reference` extension blocks still append per agent-start, and pi's `Current date:` / `Current working directory:` tail still appends — those are useful and benign.
 
-This affects every benchmark that uses `PiRpc` (Aider Polyglot, TB 1.0, TB 2.0, GAIA — they all share `benchmarks/rpc_client.py`). For interactive `pi` use outside the benchmark harness, pi's default behavior is unchanged unless the user passes `--system-prompt AGENTS.md --no-context-files` themselves.
+This affects the Terminal-Bench harnesses that use `PiRpc` (TB 1.0 via `benchmarks/tb_adapter`, TB 2.0 via `benchmarks/harbor_adapter`). The published Aider Polyglot results (45.56 % at v0.0.2, 78.67 % at v0.0.5) were on the pre-pi Python codebase and predate `PiRpc` entirely — not affected by this change. GAIA hasn't been run yet. For interactive `pi` use outside the benchmark harness, pi's default behavior is unchanged unless the user passes `--system-prompt AGENTS.md --no-context-files` themselves.
 
 ### Action: stopped v0.1.21 run, restarted as v0.1.22
 The `tb2-leaderboard-k5-v0.1.21-2026-04-26__15-00-24` run was killed mid-flight (early progress, prompt-architecture change made the run no longer comparable). Archived to `archived-partial-runs/`. A fresh `tb2-leaderboard-k5-v0.1.22-*` run starts immediately on the new prompt-architecture.
